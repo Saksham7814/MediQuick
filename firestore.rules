@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// Firestore security rules for Mediquick.
+// Paste these into: Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each patient may read and write only their own profile document.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Per-user subcollections (saved items, notifications, etc.) — owner only.
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // A signed-in patient may create consultation requests and read their own.
+    match /consultations/{id} {
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if request.auth != null
+                    && resource.data.userId == request.auth.uid;
+    }
+
+    // Public catalogue (read-only for everyone; writes done from the console
+    // or an admin tool). Uncomment when you seed these collections.
+    // match /hospitals/{id}   { allow read: if true; }
+    // match /doctors/{id}     { allow read: if true; }
+    // match /treatments/{id}  { allow read: if true; }
+  }
+}
