@@ -1,28 +1,35 @@
+import { Link } from 'react-router-dom';
 import Icon from '../ui/Icon.jsx';
-import { useScrollToTop } from '../layout/SmoothScroll.jsx';
 
 /**
  * The compact search the header search converts into once scrolled — segmented
- * "Treatments · Hospitals · Doctors" with a round search button. Clicking it
- * smoothly scrolls back to the top, which expands the full search again.
+ * "Treatments · Hospitals · Doctors" with a round search button. Each segment
+ * links to its listing page; the button opens the Explore search.
  */
 export default function SearchPill() {
-  const scrollToTop = useScrollToTop();
+  const seg =
+    'rounded-full px-2.5 py-1 font-semibold text-ink-900 transition-colors hover:bg-ink-50';
 
   return (
-    <button
-      type="button"
-      onClick={() => scrollToTop()}
-      className="flex items-center gap-3 whitespace-nowrap rounded-full border border-ink-200 bg-white py-1.5 pl-6 pr-2 text-sm shadow-pill transition-shadow hover:shadow-card-hover"
-    >
-      <span className="font-semibold text-ink-900">Treatments</span>
+    <div className="flex items-center gap-1 whitespace-nowrap rounded-full border border-ink-200 bg-white py-1.5 pl-3 pr-2 text-sm shadow-pill">
+      <Link to="/treatments" className={seg}>
+        Treatments
+      </Link>
       <span className="h-4 w-px bg-ink-200" />
-      <span className="font-semibold text-ink-900">Hospitals</span>
+      <Link to="/hospitals" className={seg}>
+        Hospitals
+      </Link>
       <span className="h-4 w-px bg-ink-200" />
-      <span className="font-semibold text-ink-900">Doctors</span>
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
+      <Link to="/doctors" className={seg}>
+        Doctors
+      </Link>
+      <Link
+        to="/explore"
+        aria-label="Search"
+        className="ml-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700"
+      >
         <Icon name="search" size={16} />
-      </span>
-    </button>
+      </Link>
+    </div>
   );
 }
