@@ -150,10 +150,10 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-ink-950/5 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
-                <span className="rounded-full border border-white/50 bg-white/30 px-3 py-1 font-semibold text-ink-900 shadow-soft backdrop-blur-md">
+                <span className="rounded-full bg-white px-3 py-1 font-semibold text-ink-900 shadow-soft">
                   {cat}
                 </span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/50 bg-white/30 text-ink-900 backdrop-blur-md transition-transform group-hover:translate-x-0.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-ink-900 shadow-soft transition-transform group-hover:translate-x-0.5">
                   <Icon name="arrowRight" size={15} />
                 </span>
               </div>
